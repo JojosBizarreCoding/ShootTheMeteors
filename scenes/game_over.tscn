@@ -1,0 +1,104 @@
+[gd_scene load_steps=5 format=3 uid="uid://cobf5c84tjuq3"]
+
+[ext_resource type="Script" uid="uid://bn0ohjqqlyvs4" path="res://scenes/game_over.gd" id="1_wqhvx"]
+[ext_resource type="PackedScene" uid="uid://hececftd7udp" path="res://scenes/input_helper.tscn" id="2_tbwuq"]
+[ext_resource type="AudioStream" uid="uid://kmxgr14mwir6" path="res://audio/Canon In D For 8 Bit Synths.mp3" id="3_tbwuq"]
+[ext_resource type="PackedScene" uid="uid://c8g6tklyot0em" path="res://scenes/shoot_button.tscn" id="4_racf3"]
+
+[node name="gameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wqhvx")
+
+[node name="inputHelper" parent="." instance=ExtResource("2_tbwuq")]
+
+[node name="backgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08235294, 0, 0.1882353, 1)
+
+[node name="gameOver" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.5
+offset_top = -75.0
+offset_right = 182.5
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 60
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="score" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -385.75
+offset_top = 37.51001
+offset_right = 385.75
+offset_bottom = 64.94
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "Your score: 0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -46.0
+offset_right = 146.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 14
+metadata/_edit_lock_ = true
+
+[node name="pressRestart" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 22
+text = "Press SHOOT to go back to menu"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="gameOverMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tbwuq")
+autoplay = true
+parameters/looping = true
+
+[node name="shootButton" parent="." instance=ExtResource("4_racf3")]
+layout_mode = 1
+offset_left = -204.0
+offset_top = -223.0
+offset_right = -44.0
+offset_bottom = -63.0
+
+[connection signal="device_changed" from="inputHelper" to="." method="_on_input_helper_device_changed"]
+[connection signal="button_down" from="shootButton" to="." method="_on_shoot_button_button_down"]

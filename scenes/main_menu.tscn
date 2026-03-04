@@ -1,0 +1,112 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkuy25c2dkhxn"]
+
+[ext_resource type="Script" uid="uid://cd1ljsqdh132y" path="res://scenes/main_menu.gd" id="1_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://djaylm63xeppc" path="res://assets/backgrounds/testGameEmptyBG.png" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://bnaa2nohvk7xr" path="res://assets/backgrounds/title.png" id="2_wu84c"]
+[ext_resource type="Texture2D" uid="uid://d1ng6sdkdg58h" path="res://assets/sprites/meteorSprite.png" id="3_8ln24"]
+[ext_resource type="AudioStream" uid="uid://bq6ex6v5pxolt" path="res://audio/8bit Dungeon Level.mp3" id="6_rtw2f"]
+[ext_resource type="AudioStream" uid="uid://dk2rx1biu4iaf" path="res://audio/confirmNoise.wav" id="11_lgwnu"]
+
+[node name="mainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5dd4i")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 1600.0
+offset_bottom = 900.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bqqt6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 70
+alignment = 1
+
+[node name="logo" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_wu84c")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="start" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 35
+text = "Start"
+alignment = 0
+
+[node name="credits" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 35
+text = "Credits
+"
+alignment = 0
+
+[node name="godotLicense" type="LinkButton" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 35
+text = "Godot license"
+uri = "https://godotengine.org/license"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HFlowContainer2" type="HFlowContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+alignment = 1
+
+[node name="meteor1" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer2/HFlowContainer2"]
+texture_filter = 1
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_8ln24")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="confirmNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_lgwnu")
+
+[node name="titleMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_rtw2f")
+autoplay = true
+parameters/looping = true
+
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/credits" to="." method="_on_credits_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/godotLicense" to="." method="_on_godot_license_button_down"]
+[connection signal="finished" from="confirmNoise" to="." method="_on_confirm_noise_finished"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8g6tklyot0em"]
+
+[ext_resource type="Texture2D" uid="uid://cgppe1e46cooq" path="res://assets/sprites/shootButton.png" id="1_7jrmh"]
+[ext_resource type="Texture2D" uid="uid://2x8sggc10fbb" path="res://assets/sprites/shootButtonPressed.png" id="2_pflc6"]
+
+[node name="shootButton" type="TextureButton"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1076.0
+offset_top = 497.0
+offset_right = 1236.0
+offset_bottom = 657.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("1_7jrmh")
+texture_pressed = ExtResource("2_pflc6")

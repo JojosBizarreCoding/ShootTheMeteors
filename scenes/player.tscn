@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://cipp1y5t53akv"]
+
+[ext_resource type="Texture2D" uid="uid://j701q25fefqp" path="res://assets/sprites/spaceshipPlayer.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bc6qqo0oucpwk" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Shader" uid="uid://cha43ttc35mlm" path="res://assets/addons/eye_dropper/eye_dropper.gdshader" id="2_dqkch"]
+[ext_resource type="PackedScene" uid="uid://hececftd7udp" path="res://scenes/input_helper.tscn" id="3_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://dhfdxkfw00xr3" path="res://audio/pewPew.wav" id="5_qlg0r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qlg0r"]
+shader = ExtResource("2_dqkch")
+shader_parameter/palette_array_size = 0
+shader_parameter/input_palette_texture = ExtResource("1_3vyb7")
+shader_parameter/output_palette_texture = ExtResource("1_3vyb7")
+shader_parameter/input_palette_array = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/output_palette_array = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="player" type="CharacterBody2D"]
+scale = Vector2(2.5, 2.5)
+collision_mask = 6
+motion_mode = 1
+script = ExtResource("1_g2els")
+speed = 500
+
+[node name="playerSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_qlg0r")
+texture = ExtResource("1_3vyb7")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -9, 2, -8, 6, -5, 8, -7, 12, -9, 14, -6, 12, 1, 14, 3, 14, 8, 11, 10, 4, 6, 3, 10, 0, 14, -3, 10, -4, 6, -11, 10, -14, 7, -14, 3, -12, 1, -14, -7, -12, -9, -8, -7, -4, -5, -2, -8)
+
+[node name="inputHelper" parent="." groups=["inputHelper"] instance=ExtResource("3_qhqgy")]
+
+[node name="laserStart" type="Marker2D" parent="."]
+position = Vector2(0, -9.2)
+
+[node name="laserTimer" type="Timer" parent="."]
+wait_time = 0.125
+one_shot = true
+
+[node name="laserSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_qlg0r")
+volume_db = 5.0
+
+[connection signal="device_changed" from="inputHelper" to="." method="_on_input_helper_device_changed"]
+[connection signal="timeout" from="laserTimer" to="." method="_on_laser_timer_timeout"]

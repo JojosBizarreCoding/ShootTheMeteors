@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://hececftd7udp"]
+
+[ext_resource type="Script" uid="uid://cholww48njaeh" path="res://assets/addons/input_helper/input_helper.gd" id="1_en0ns"]
+
+[node name="inputHelper" type="Node2D"]
+script = ExtResource("1_en0ns")

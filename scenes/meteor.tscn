@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://bl71k8do0hh2c"]
+
+[ext_resource type="Script" uid="uid://rotg1kfl0fxm" path="res://scenes/meteor.gd" id="1_pxso2"]
+[ext_resource type="Texture2D" uid="uid://d1ng6sdkdg58h" path="res://assets/sprites/meteorSprite.png" id="1_tcwo0"]
+[ext_resource type="Shader" uid="uid://cha43ttc35mlm" path="res://assets/addons/eye_dropper/eye_dropper.gdshader" id="2_lhxke"]
+[ext_resource type="Texture2D" uid="uid://c2hf31x7amwss" path="res://assets/pallets/defaultPalette.png" id="3_8tfog"]
+[ext_resource type="AudioStream" uid="uid://bk5qdy7by4s62" path="res://audio/meteorDestruction.wav" id="5_lhxke"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8tfog"]
+load_path = "res://.godot/imported/defaultPalette.png-31964f1891e92ea56617fddf5d8519ad.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lhxke"]
+shader = ExtResource("2_lhxke")
+shader_parameter/palette_array_size = 0
+shader_parameter/input_palette_texture = ExtResource("3_8tfog")
+shader_parameter/output_palette_texture = SubResource("CompressedTexture2D_8tfog")
+shader_parameter/input_palette_array = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/output_palette_array = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="meteor" type="Area2D"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_pxso2")
+
+[node name="meteorSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_lhxke")
+texture = ExtResource("1_tcwo0")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-1, -10, 5, -6, 10, -2, 11, 2, 7, 8, -7, 8, -11, 0, -9, -5, -5, -9)
+
+[node name="meteorDestructionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_lhxke")
+volume_db = 5.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

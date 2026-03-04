@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://d35fq8erv0v15"]
+
+[ext_resource type="Script" uid="uid://ceiemivrjn0it" path="res://scenes/game_ui.gd" id="1_rns2u"]
+
+[node name="gameUI" type="CanvasLayer" groups=["UI"]]
+script = ExtResource("1_rns2u")
+
+[node name="score" type="RichTextLabel" parent="."]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -289.0
+offset_right = 289.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 25
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="lives" type="HBoxContainer" parent="."]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 8
+
+[node name="scoreTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="scoreTimer" to="." method="_on_score_timer_timeout"]

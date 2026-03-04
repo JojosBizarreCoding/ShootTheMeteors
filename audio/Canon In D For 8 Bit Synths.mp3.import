@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://kmxgr14mwir6"
+path="res://.godot/imported/Canon In D For 8 Bit Synths.mp3-0a9db2eed92186f6dd12ec0f1427e4c3.mp3str"
+
+[deps]
+
+source_file="res://audio/Canon In D For 8 Bit Synths.mp3"
+dest_files=["res://.godot/imported/Canon In D For 8 Bit Synths.mp3-0a9db2eed92186f6dd12ec0f1427e4c3.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

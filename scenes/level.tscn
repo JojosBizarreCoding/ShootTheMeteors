@@ -1,0 +1,135 @@
+[gd_scene load_steps=16 format=3 uid="uid://7uh6otowojry"]
+
+[ext_resource type="PackedScene" uid="uid://cipp1y5t53akv" path="res://scenes/player.tscn" id="1_2q6dc"]
+[ext_resource type="Script" uid="uid://cui27vsq334fd" path="res://scenes/level.gd" id="1_mx8sn"]
+[ext_resource type="Texture2D" uid="uid://dm4xql62jgj7g" path="res://assets/backgrounds/testGameBG.png" id="1_w7c3h"]
+[ext_resource type="Shader" uid="uid://kwdi7crmua04" path="res://scenes/loop.gdshader" id="3_2r41h"]
+[ext_resource type="Texture2D" uid="uid://djaylm63xeppc" path="res://assets/backgrounds/testGameEmptyBG.png" id="3_ppgk2"]
+[ext_resource type="PackedScene" uid="uid://d35fq8erv0v15" path="res://scenes/game_ui.tscn" id="6_2r41h"]
+[ext_resource type="AudioStream" uid="uid://cu3uxf5sylvjn" path="res://audio/playerHitSound.wav" id="6_klq6b"]
+[ext_resource type="AudioStream" uid="uid://b20emd1elg1rv" path="res://audio/alarmFinalLife.wav" id="7_b121j"]
+[ext_resource type="AudioStream" uid="uid://cnjgper285cu3" path="res://audio/reallyBadExplosion.wav" id="8_8c41q"]
+[ext_resource type="AudioStream" uid="uid://cm2p0amt84whf" path="res://audio/Mesmerizing Galaxy Loop.mp3" id="10_olg7q"]
+[ext_resource type="PackedScene" uid="uid://ddo47f38ulwyw" path="res://assets/addons/joystick_addon/joystick.tscn" id="11_t1rx8"]
+[ext_resource type="PackedScene" uid="uid://c8g6tklyot0em" path="res://scenes/shoot_button.tscn" id="12_8iemx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_klq6b"]
+shader = ExtResource("3_2r41h")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mx8sn"]
+size = Vector2(20, 1280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8frs"]
+size = Vector2(20, 720)
+
+[node name="level" type="Node2D"]
+script = ExtResource("1_mx8sn")
+
+[node name="background" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="emptyBackground" type="Sprite2D" parent="background"]
+position = Vector2(643, 364.00003)
+scale = Vector2(0.6880208, 0.70185184)
+texture = ExtResource("3_ppgk2")
+metadata/_edit_lock_ = true
+
+[node name="stars" type="Sprite2D" parent="background"]
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_klq6b")
+position = Vector2(647.00006, 367)
+scale = Vector2(0.67552084, 0.69907403)
+texture = ExtResource("1_w7c3h")
+metadata/_edit_lock_ = true
+
+[node name="player" parent="." instance=ExtResource("1_2q6dc")]
+position = Vector2(625.99994, 369.99997)
+
+[node name="borders" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="borders"]
+position = Vector2(-202, 0)
+rotation = 1.5707964
+collision_layer = 2
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/StaticBody2D3"]
+position = Vector2(-10.000061, -842)
+shape = SubResource("RectangleShape2D_mx8sn")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="borders"]
+position = Vector2(-101, 0)
+collision_layer = 2
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/StaticBody2D2"]
+position = Vector2(91, 360)
+shape = SubResource("RectangleShape2D_w8frs")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="borders"]
+collision_layer = 2
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/StaticBody2D"]
+position = Vector2(1290, 360)
+shape = SubResource("RectangleShape2D_w8frs")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="borders"]
+position = Vector2(-202, 58)
+rotation = 1.5707964
+collision_layer = 2
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="borders/StaticBody2D4"]
+position = Vector2(671.99994, -842)
+shape = SubResource("RectangleShape2D_mx8sn")
+
+[node name="lasers" type="Node2D" parent="."]
+
+[node name="meteors" type="Node2D" parent="."]
+
+[node name="sounds" type="Node2D" parent="."]
+
+[node name="gameMusic" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("10_olg7q")
+autoplay = true
+parameters/looping = true
+
+[node name="playerHitSound" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("6_klq6b")
+volume_db = 10.0
+
+[node name="alarmSound" type="AudioStreamPlayer2D" parent="sounds"]
+position = Vector2(-1, 0)
+stream = ExtResource("7_b121j")
+volume_db = 5.0
+
+[node name="playerDeathSound" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("8_8c41q")
+volume_db = 5.0
+
+[node name="gameUI" parent="." instance=ExtResource("6_2r41h")]
+
+[node name="meteorTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="hitTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Joystick" parent="." instance=ExtResource("11_t1rx8")]
+position = Vector2(150, 557)
+scale = Vector2(0.5, 0.5)
+up_input = "up"
+down_input = "down"
+left_input = "left"
+right_input = "right"
+
+[node name="shootButton" parent="." instance=ExtResource("12_8iemx")]
+
+[connection signal="laser_shoot" from="player" to="." method="_on_player_laser_shoot"]
+[connection signal="timeout" from="meteorTimer" to="." method="_on_meteor_timer_timeout"]
+[connection signal="timeout" from="hitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="button_down" from="shootButton" to="." method="_on_shoot_button_button_down"]
